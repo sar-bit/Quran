@@ -9,7 +9,7 @@ export const widths = width;
 export default StyleSheet.create({
   ...ApplicationStyles,
   container: {
-    height: moderateScale(50),
+    height: moderateScale(60),
     backgroundColor: colors.green,
     justifyContent: 'center',
   },
@@ -28,9 +28,18 @@ export default StyleSheet.create({
     borderRadius: moderateScale(6),
   },
   textInputStyle: {
-    width: '50%',
-    paddingLeft: moderateScale(5),
-    paddingTop: moderateScale(4),
+    width: '80%',
+    paddingLeft: moderateScale(10),
+    paddingTop: moderateScale(5),
     color: 'white',
   },
+  headerText:{
+    color:'white',
+    textAlign:'center',
+    fontWeight:'bold',
+    fontSize:moderateScale(20)
+  },
+  alignCenter:{
+    justifyContent:'center'
+  }
 });
