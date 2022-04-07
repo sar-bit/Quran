@@ -1,12 +1,49 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import Header from '../../components/header/Header';
 import {SCREEN_KEYS} from '../utilities/Constants';
 import {CheckBox} from 'react-native-elements';
-//import { StripeProvider } from '@stripe/stripe-react-native';
+import {useStripe} from '@stripe/stripe-react-native';
 
 const Payment = (props) => {
   const [checked, setChecked] = useState(false);
+  const {initPaymentSheet, presentPaymentSheet} = useStripe();
+  const initializePaymentSheet = async () => {
+    // const {
+    //   paymentIntent,
+    //   ephemeralKey,
+    //   customer,
+    //   publishableKey,
+    // } = await fetchPaymentSheetParams();
+
+    const {error} = await initPaymentSheet({
+      customerId: 'customer',
+      customerEphemeralKeySecret: 'ephemeralKey',
+      paymentIntentClientSecret: 'paymentIntent',
+      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+      //methods that complete payment after a delay, like SEPA Debit and Sofort.
+      // allowsDelayedPaymentMethods: true,
+    });
+    // if (!error) {
+    //  Alert.alert(error)
+    // }
+    console.log('success');
+  };
+
+  const openPaymentSheet = async () => {
+    const {error} = await presentPaymentSheet();
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      Alert.alert('Success', 'Your order is confirmed!');
+    }
+  };
+
+  useEffect(() => {
+    initializePaymentSheet();
+  }, []);
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header page={SCREEN_KEYS.PAYMENT} navigation={props.navigation} />
@@ -28,7 +65,8 @@ const Payment = (props) => {
           justifyContent: 'center',
           alignItems: 'center',
           alignSelf: 'center',
-        }}>
+        }}
+        onPress={() => openPaymentSheet()}>
         <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
           Next
         </Text>

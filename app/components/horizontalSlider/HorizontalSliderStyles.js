@@ -15,14 +15,14 @@ export default StyleSheet.create({
     paddingTop: moderateScale(14),
   },
   tileView: {
-    width: moderateScale(80),
-    marginLeft:moderateScale(4),
-    marginRight:moderateScale(4)
+    width: moderateScale(70),
+    marginLeft:moderateScale(3),
+    marginRight:moderateScale(3)
   },
   tilesContainer: {
     borderWidth: moderateScale(2),
-    width: moderateScale(80),
-    height: moderateScale(80),
+    width: moderateScale(70),
+    height: moderateScale(70),
     borderRadius: moderateScale(20),
     borderColor: colors.green,
     justifyContent: 'center',
@@ -30,8 +30,8 @@ export default StyleSheet.create({
     // padding:moderateScale(10)
   },
   tilesImgContainer: {
-    width: moderateScale(65),
-    height: moderateScale(65),
+    width: moderateScale(60),
+    height: moderateScale(60),
   },
   tilesImg: {
     width: '100%',
@@ -39,5 +39,5 @@ export default StyleSheet.create({
     overflow: 'hidden',
     borderRadius: moderateScale(15),
   },
-  textStyle: {textAlign: 'center', paddingTop: 2},
+  textStyle: {textAlign: 'center', paddingTop: 2,fontSize:12, fontWeight:'700'},
 });

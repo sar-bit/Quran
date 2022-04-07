@@ -9,17 +9,18 @@ export const widths = width;
 export default StyleSheet.create({
   ...ApplicationStyles,
   container: {
-    height: moderateScale(60),
+    height: moderateScale(55),
     backgroundColor: colors.green,
     justifyContent: 'center',
+    width:widths
   },
   innerContainer: {
     flexDirection: 'row',
     marginHorizontal: moderateScale(10),
   },
   searchView: {
-    width: '90%',
-    flexDirection: 'row',
+    width: '85%',
+    flexDirection: 'row'
   },
   searchContainer: {
     width: '100%',
@@ -28,10 +29,11 @@ export default StyleSheet.create({
     borderRadius: moderateScale(6),
   },
   textInputStyle: {
-    width: '80%',
+    width: '85%',
     paddingLeft: moderateScale(10),
-    paddingTop: moderateScale(5),
+   paddingBottom:moderateScale(5),
     color: 'white',
+    height:moderateScale(30)
   },
   headerText:{
     color:'white',

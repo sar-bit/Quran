@@ -9,19 +9,16 @@ export const widths = width;
 export default StyleSheet.create({
   ...ApplicationStyles,
   sliderContainer: {
-    // height: height / 2.4,
     width: widths,
-    marginTop: moderateScale(10),
-    marginBottom: moderateScale(10),
+    marginTop: moderateScale(5),
   },
   slide: {
-    height: moderateScale(300),
-    // width: widths/1.4
+    height: height / 2.2
   },
   sliderImg: {
     width: '100%',
     height: '100%',
     overflow: 'hidden',
-    borderRadius: moderateScale(20),
+    borderRadius: moderateScale(10),
   },
 });

@@ -15,11 +15,16 @@ class Header extends Component {
   }
 
   render() {
-    const {page,navigation} = this.props || {};
+    const {page, navigation} = this.props || {};
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Icon name="chevron-left" size={40} color="white" onPress={()=>navigation.goBack()}/>
+          <Icon
+            name="chevron-left"
+            size={40}
+            color="white"
+            onPress={() => navigation.goBack()}
+          />
           {page === SCREEN_KEYS.HOMESCREEN ? (
             <View style={styles.searchView}>
               {this.state.searchClick && (

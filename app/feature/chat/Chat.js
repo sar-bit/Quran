@@ -29,7 +29,7 @@ const Chat = (props) => {
     );
   }, []);
   return (
-    <View style={styles.chatContainer}>
+   <View style={styles.chatContainer}>
       <Header page={SCREEN_KEYS.CHAT} navigation={props.navigation} />
       <GiftedChat
         messages={messages}
