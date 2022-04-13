@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import styles from './PaymentStyles';
+import masklogo from '../../asset/images/MaskLogo.png';
 
 function PaymentSuccess() {
   return (
@@ -12,6 +13,9 @@ function PaymentSuccess() {
           Lorem Ism is Simply omescreen, Lorem Ism is Simply lorem Ism is Simply
           Lorem Ism
         </Text>
+      </View>
+      <View style={styles.bgImageContainer}>
+        <Image source={masklogo} style={styles.bgImageStyle} />
       </View>
     </View>
   );

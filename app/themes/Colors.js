@@ -12,14 +12,14 @@ const colors = {
     darkTextGrey: '#333333',
     buttonText: '#bdbdbd',
     placeholderText: '#adadad',
-    lightGrey: '#f7f7f7',
+    lightGrey: '#F0F0F0',
     yellow:'#F8CA0B',
     yellowlight:'#FFE888',
     grey:'#707070',
     acquamarine:'#66CDAA',
     blue:'#31A6F5',
-    green:'green'
-    
+    green:'#009000',
+    lightgreen:'#d9f2e6'
   };
   
   export default colors;

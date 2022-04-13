@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, Image,StyleSheet} from 'react-native';
-//import logo from '../Images/logo-new.png';
+import {Text, View, Image, StyleSheet, Dimensions} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
+import logo from '../asset/images/Logo.png';
+import masklogo from '../asset/images/MaskLogo.png';
 import {SCREEN_KEYS} from '../feature/utilities/Constants';
+import colors from '../themes/Colors';
+
+const {height, width} = Dimensions.get('screen');
+export const widths = width;
 
 class Splash extends Component {
   componentDidMount() {
@@ -11,12 +17,12 @@ class Splash extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {/* <View style={styles.landingimg}>
+      <View style={{flex: 1, backgroundColor: colors.green}}>
+        <View style={styles.container}>
           <Image source={logo} resizeMode="cover" />
-        </View> */}
-        <View style={styles.loginContainer}>
-          <Text style={styles.title}>Quran</Text>
+        </View>
+        <View style={styles.bgImageContainer}>
+          <Image source={masklogo} style={styles.bgImageStyle} />
         </View>
       </View>
     );
@@ -26,22 +32,18 @@ class Splash extends Component {
 export default Splash;
 
 const styles = StyleSheet.create({
-  title: {
-    textAlign: 'center',
-    fontSize: 34,
-    marginTop: '5%',
-    color:'white',
-    fontWeight:'bold'
-  },
-
   container: {
-    //paddingTop: '2%',
     justifyContent: 'center',
     alignSelf: 'center',
     flex: 1,
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    backgroundColor:'green',
-    width:'100%'
+  },
+  bgImageContainer: {
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
+  },
+  bgImageStyle: {
+    width: widths,
+    height: height,
   },
 });

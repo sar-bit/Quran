@@ -15,11 +15,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {SCREEN_KEYS} from './utilities/Constants';
 const {height, width} = Dimensions.get('screen');
 export const widths = width;
+import PaymentSuccess from '../components/payment/PaymentSuccess'
+import PaymentFail from '../components/payment/PaymentFail';
 
 const HomeScreen = (props) => {
   return (
     <View style={styles.homeContainer}>
-      <ScrollView>
+      {/* <ScrollView>
         <Header page={SCREEN_KEYS.HOMESCREEN} navigation={props.navigation} />
         <HorizontalSlider />
         <Slider />
@@ -38,7 +40,9 @@ const HomeScreen = (props) => {
         style={styles.iconStyle}
         onPress={() => props.navigation.navigate(SCREEN_KEYS.CHAT)}>
         <Icon name="ios-chatbubble-ellipses-outline" size={25} color="white" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      {/* <PaymentSuccess/> */}
+      <PaymentFail/>
     </View>
   );
 };
