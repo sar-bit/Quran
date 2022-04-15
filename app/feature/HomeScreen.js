@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import Header from '../components/header/Header';
 import HorizontalSlider from '../components/horizontalSlider/HorizontalSlider';
@@ -15,17 +16,59 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {SCREEN_KEYS} from './utilities/Constants';
 const {height, width} = Dimensions.get('screen');
 export const widths = width;
-import PaymentSuccess from '../components/payment/PaymentSuccess'
+import PaymentSuccess from '../components/payment/PaymentSuccess';
 import PaymentFail from '../components/payment/PaymentFail';
 
 const HomeScreen = (props) => {
+  const [singleSurahDetail, setSingleSurahDetails] = useState([]);
+  const [selectedSurah, setSelectedSurah] = useState('Al-Fatihah');
+  const [loader, setLoader] = useState(true);
+  const getSingleSurah = async () => {
+    setLoader(true);
+    await fetch(
+      `http://192.168.0.107:5000/api/surah/content/${selectedSurah}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setSingleSurahDetails(data.data), setLoader(false);
+      });
+  };
+
+  console.log(selectedSurah, 'selectedSurah');
+
+  useEffect(() => {
+    getSingleSurah();
+  }, [selectedSurah]);
+
+  // console.log(allSurah,'allSurah')
+  console.log(singleSurahDetail, 'singleSurahDetail');
   return (
     <View style={styles.homeContainer}>
-      {/* <ScrollView>
-        <Header page={SCREEN_KEYS.HOMESCREEN} navigation={props.navigation} />
-        <HorizontalSlider />
-        <Slider />
-        <View style={styles.detailsContainer}>
+      
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Header page={SCREEN_KEYS.HOMESCREEN} navigation={props.navigation} />
+          <HorizontalSlider setSelectedSurah={(res) => setSelectedSurah(res)} />
+          {/* {loader ? (
+        <View
+          style={{
+            position: 'absolute',
+            alignSelf: 'center',
+            bottom: height / 2,
+          }}>
+          <ActivityIndicator size="large" color={colors.green} />
+        </View>
+      ) : ( */}
+          
+          <Slider singleSurahDetail={singleSurahDetail} />
+          {/* )} */}
+          {/* <View style={styles.detailsContainer}>
           <Text style={styles.textHeader}>Lorem Ism is Simply</Text>
           <Text style={styles.textStyle}>
             Lorem Ism is Simply omescreen, Lorem Ism is Simply lorem Ism is
@@ -34,15 +77,16 @@ const HomeScreen = (props) => {
             Ism is Simply Lorem Ism is Simply omescreen, Lorem Ism is Simply
             lorem Ism is Simply
           </Text>
-        </View>
-      </ScrollView>
+        </View> */}
+        </ScrollView>
+
       <TouchableOpacity
         style={styles.iconStyle}
         onPress={() => props.navigation.navigate(SCREEN_KEYS.CHAT)}>
         <Icon name="ios-chatbubble-ellipses-outline" size={25} color="white" />
-      </TouchableOpacity> */}
+      </TouchableOpacity>
       {/* <PaymentSuccess/> */}
-      <PaymentFail/>
+      {/* <PaymentFail/> */}
     </View>
   );
 };

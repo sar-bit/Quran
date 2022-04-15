@@ -16,12 +16,12 @@ export default StyleSheet.create({
   },
   tileView: {
     width: moderateScale(70),
-    marginLeft:moderateScale(3),
-    marginRight:moderateScale(3)
+    marginLeft:moderateScale(5),
+    marginRight:moderateScale(5)
   },
   tilesContainer: {
     borderWidth: moderateScale(2),
-    width: moderateScale(70),
+    width: moderateScale(74),
     height: moderateScale(70),
     borderRadius: moderateScale(20),
     borderColor: colors.green,
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     // padding:moderateScale(10)
   },
   tilesImgContainer: {
-    width: moderateScale(60),
+    width: moderateScale(63),
     height: moderateScale(60),
   },
   tilesImg: {

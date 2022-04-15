@@ -13,12 +13,19 @@ export default StyleSheet.create({
     marginTop: moderateScale(5),
   },
   slide: {
-    height: height / 2.2
+    height: height / 1.7
   },
   sliderImg: {
     width: '100%',
-    height: '100%',
+    height: '70%',
     overflow: 'hidden',
     borderRadius: moderateScale(10),
+  },
+  detailsContainer: {
+    marginTop: moderateScale(10),
+  },
+  textHeader: {fontWeight: 'bold', fontSize: 16},
+  textStyle: {
+    color: colors.placeholderText,
   },
 });

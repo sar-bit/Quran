@@ -7,44 +7,34 @@ export const widths = width;
 const sliderWidth = widths;
 const itemWidth = widths / 1.3;
 class Slider extends Component {
-  state = {
-    entries: [
-      {
-        title: 'A',
-        imageUrl:
-          'https://images.unsplash.com/photo-1629992101753-56d196c8aabb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTYzMzQ2NzEwMA&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080',
-      },
-      {
-        title: 'Abcdefgh',
-        imageUrl:
-          'https://images.unsplash.com/photo-1542816417-3eeda61136e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTYzOTQwMzQyNg&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080',
-      },
-      {
-        title: 'A',
-        imageUrl:
-          'https://images.unsplash.com/photo-1629992101753-56d196c8aabb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTYzMzQ2NzEwMA&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080',
-      },
-      {
-        title: 'A',
-        imageUrl:
-          'https://images.unsplash.com/photo-1629992101753-56d196c8aabb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTYzMzQ2NzEwMA&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080',
-      },
-    ],
-    activeSlide:0
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      activeSlide:0
+    };
+
+  }
+ 
   _renderItem = ({item, index}) => {
     return (
       <View style={styles.slide}>
-        <Image source={{uri: item.imageUrl}} style={styles.sliderImg} />
+        <Image source={{uri: `http://192.168.0.107:5000/${item.imagePath}`}} style={styles.sliderImg} />
+        <View style={styles.detailsContainer}>
+          <Text style={styles.textHeader}>{item.title}</Text>
+          <Text style={styles.textStyle}>
+           {item.description}
+          </Text>
+        </View>
       </View>
     );
   };
 
   get pagination() {
-    const {entries, activeSlide} = this.state;
+    const {activeSlide} = this.state;
+    const {singleSurahDetail} = this.props ||{};
     return (
       <Pagination
-        dotsLength={entries.length}
+        dotsLength={singleSurahDetail.length}
         activeDotIndex={activeSlide}
         containerStyle={{backgroundColor: 'white'}}
         dotStyle={{
@@ -72,14 +62,14 @@ class Slider extends Component {
           ref={(c) => {
             this._carousel = c;
           }}
-          data={this.state.entries}
+          data={this.props.singleSurahDetail}
           renderItem={this._renderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
           //layout={'tinder'}
           onSnapToItem={(index) => this.setState({activeSlide: index})}
         />
-        {this.pagination}
+        {/* {this.pagination} */}
       </View>
     );
   }
