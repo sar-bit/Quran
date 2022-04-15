@@ -10,12 +10,29 @@ class Header extends Component {
     super(props);
     this.state = {
       searchClick: false,
+      search: '',
     };
     this.controller;
   }
+  getSearch = async () => {
+    console.log('in search');
+    this.props.setLoader(true);
+    await fetch(
+      `http://192.168.0.107:5000/api/surah/search/${this.state.search}`,
+      {
+        method: 'GET',
+      },
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        this.props.setSingleSurahDetails(res.data), this.props.setLoader(false);
+      });
+  };
 
   render() {
     const {page, navigation} = this.props || {};
+    const {search} = this.state;
+    console.log(search);
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
@@ -35,6 +52,8 @@ class Header extends Component {
                     placeholder="Search"
                     style={styles.textInputStyle}
                     placeholderTextColor={'white'}
+                    value={search}
+                    onChangeText={(res) => this.setState({search: res})}
                   />
                 </Animatable.View>
               )}
@@ -42,7 +61,10 @@ class Header extends Component {
                 name="search"
                 size={30}
                 color="white"
-                onPress={() => this.setState({searchClick: true})}
+                onPress={() => {
+                  this.setState({searchClick: true}),
+                    this.state.searchClick && this.getSearch();
+                }}
                 style={{position: 'absolute', right: 10}}
               />
             </View>

@@ -58,6 +58,12 @@ class Slider extends Component {
   render() {
     return (
       <View style={styles.sliderContainer}>
+        {this.props.singleSurahDetail.length===0 &&
+        <View 
+        style={styles.noListView}>
+        <Text style={styles.noListText}>No Surah Listed</Text>
+        </View>
+        }
         <Carousel
           ref={(c) => {
             this._carousel = c;

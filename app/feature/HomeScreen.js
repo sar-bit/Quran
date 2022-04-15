@@ -16,8 +16,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {SCREEN_KEYS} from './utilities/Constants';
 const {height, width} = Dimensions.get('screen');
 export const widths = width;
-import PaymentSuccess from '../components/payment/PaymentSuccess';
-import PaymentFail from '../components/payment/PaymentFail';
 
 const HomeScreen = (props) => {
   const [singleSurahDetail, setSingleSurahDetails] = useState([]);
@@ -51,24 +49,27 @@ const HomeScreen = (props) => {
   console.log(singleSurahDetail, 'singleSurahDetail');
   return (
     <View style={styles.homeContainer}>
-      
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Header page={SCREEN_KEYS.HOMESCREEN} navigation={props.navigation} />
-          <HorizontalSlider setSelectedSurah={(res) => setSelectedSurah(res)} />
-          {/* {loader ? (
-        <View
-          style={{
-            position: 'absolute',
-            alignSelf: 'center',
-            bottom: height / 2,
-          }}>
-          <ActivityIndicator size="large" color={colors.green} />
-        </View>
-      ) : ( */}
-          
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header
+          page={SCREEN_KEYS.HOMESCREEN}
+          navigation={props.navigation}
+          setSingleSurahDetails={(res) => setSingleSurahDetails(res)}
+          setLoader={(res) => setLoader(res)}
+        />
+        <HorizontalSlider setSelectedSurah={(res) => setSelectedSurah(res)} />
+        {loader ? (
+          <View
+            style={{
+              alignSelf: 'center',
+              justifyContent: 'center',
+              height: height / 1.7,
+            }}>
+            <ActivityIndicator size="large" color={colors.green} />
+          </View>
+        ) : (
           <Slider singleSurahDetail={singleSurahDetail} />
-          {/* )} */}
-          {/* <View style={styles.detailsContainer}>
+        )}
+        {/* <View style={styles.detailsContainer}>
           <Text style={styles.textHeader}>Lorem Ism is Simply</Text>
           <Text style={styles.textStyle}>
             Lorem Ism is Simply omescreen, Lorem Ism is Simply lorem Ism is
@@ -78,15 +79,13 @@ const HomeScreen = (props) => {
             lorem Ism is Simply
           </Text>
         </View> */}
-        </ScrollView>
+      </ScrollView>
 
       <TouchableOpacity
         style={styles.iconStyle}
         onPress={() => props.navigation.navigate(SCREEN_KEYS.CHAT)}>
         <Icon name="ios-chatbubble-ellipses-outline" size={25} color="white" />
       </TouchableOpacity>
-      {/* <PaymentSuccess/> */}
-      {/* <PaymentFail/> */}
     </View>
   );
 };

@@ -28,4 +28,10 @@ export default StyleSheet.create({
   textStyle: {
     color: colors.placeholderText,
   },
+  noListView:{
+    alignSelf: 'center',
+    justifyContent: 'center',
+    height: height / 1.7,
+  },
+  noListText:{fontWeight:'bold', fontSize:20}
 });

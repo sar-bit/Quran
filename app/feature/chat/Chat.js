@@ -28,7 +28,7 @@ class Chat extends Component {
       messages: [],
       ShowBottomspace: false,
       imageupload: false,
-      paymentSuccess: true,
+      paymentSuccess: false,
       chatImage: '',
     };
     this.FlatlistRef = React.createRef();
