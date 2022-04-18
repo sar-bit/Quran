@@ -9,29 +9,27 @@ export const widths = width;
 export default StyleSheet.create({
   ...ApplicationStyles,
   sliderContainer: {
-    height: moderateScale(120),
-   // backgroundColor: colors.placeholderText,
-    paddingHorizontal: moderateScale(10),
-    paddingTop: moderateScale(14),
+    height: moderateScale(100)
   },
   tileView: {
-    width: moderateScale(70),
+    width: moderateScale(65),
     marginLeft:moderateScale(5),
-    marginRight:moderateScale(5)
+    marginRight:moderateScale(5),
+    justifyContent:'center'
   },
   tilesContainer: {
-    borderWidth: moderateScale(2),
-    width: moderateScale(74),
-    height: moderateScale(70),
-    borderRadius: moderateScale(20),
+    borderWidth: moderateScale(1.5),
+    width: moderateScale(64),
+    height: moderateScale(60),
+    borderRadius: moderateScale(18),
     borderColor: colors.green,
     justifyContent: 'center',
     alignItems: 'center',
     // padding:moderateScale(10)
   },
   tilesImgContainer: {
-    width: moderateScale(63),
-    height: moderateScale(60),
+    width: moderateScale(56),
+    height: moderateScale(52),
   },
   tilesImg: {
     width: '100%',
@@ -39,5 +37,5 @@ export default StyleSheet.create({
     overflow: 'hidden',
     borderRadius: moderateScale(15),
   },
-  textStyle: {textAlign: 'center', paddingTop: 2,fontSize:12, fontWeight:'700'},
+  textStyle: {textAlign: 'center', paddingTop: 2,fontSize:10, fontWeight:'700'},
 });

@@ -5,7 +5,7 @@ import styles from './HorizontalSliderStyles';
 const HorizontalSlider = ({setSelectedSurah}) => {
   const [allSurah, setAllSurah] = useState([]);
   const getAllSurah = async () => {
-    await fetch('http://192.168.0.107:5000/api/surah/allsurah', {
+    await fetch('http://192.168.0.107:5000/api/surah/listing', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -18,7 +18,7 @@ const HorizontalSlider = ({setSelectedSurah}) => {
   useEffect(() => {
     getAllSurah();
   }, [allSurah.length]);
-  console.log('allSurah')
+console.log(allSurah,'allSurah')
   return (
     <View style={styles.sliderContainer}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -26,7 +26,7 @@ const HorizontalSlider = ({setSelectedSurah}) => {
           <View style={styles.tileView} key={index}>
             <TouchableOpacity
               style={styles.tilesContainer}
-              onPress={() => setSelectedSurah(item.name)}>
+              onPress={() => setSelectedSurah(item.title)}>
               <View style={styles.tilesImgContainer}>
                 <Image
                   source={{
@@ -36,7 +36,7 @@ const HorizontalSlider = ({setSelectedSurah}) => {
                 />
               </View>
             </TouchableOpacity>
-            <Text style={styles.textStyle}>{item.name}</Text>
+            <Text style={styles.textStyle}>{item.title}</Text>
           </View>
         ))}
       </ScrollView>

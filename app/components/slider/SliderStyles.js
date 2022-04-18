@@ -13,20 +13,20 @@ export default StyleSheet.create({
     marginTop: moderateScale(5),
   },
   slide: {
-    height: height / 1.7
+    height: height / 1.5
   },
   sliderImg: {
     width: '100%',
-    height: '70%',
-    overflow: 'hidden',
-    borderRadius: moderateScale(10),
+    height: '100%',
+    borderRadius:moderateScale(1.5)
   },
   detailsContainer: {
     marginTop: moderateScale(10),
   },
-  textHeader: {fontWeight: 'bold', fontSize: 16},
+  textHeader: {fontWeight: 'bold', fontSize: 14},
   textStyle: {
     color: colors.placeholderText,
+    fontSize:12
   },
   noListView:{
     alignSelf: 'center',

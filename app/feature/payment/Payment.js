@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, StyleSheet} from 'react-native';
 import Header from '../../components/header/Header';
 import {SCREEN_KEYS} from '../utilities/Constants';
 import {CheckBox} from 'react-native-elements';
@@ -55,18 +55,12 @@ const Payment = (props) => {
         checkedColor={'green'}
       />
       <TouchableOpacity
-        style={{
-          backgroundColor: 'green',
-          height: 50,
-          position: 'absolute',
-          bottom: 15,
-          width: '90%',
-          borderRadius: 10,
-          justifyContent: 'center',
-          alignItems: 'center',
-          alignSelf: 'center',
-        }}
-        onPress={() => openPaymentSheet()}>
+        style={[
+          styles.buttonActive,
+          checked ? styles.buttonActiveColor : styles.buttonDisableColor,
+        ]}
+        onPress={() => openPaymentSheet()}
+        disabled={!checked}>
         <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
           Next
         </Text>
@@ -76,3 +70,22 @@ const Payment = (props) => {
 };
 
 export default Payment;
+
+const styles = StyleSheet.create({
+  buttonActive: {
+    height: 50,
+    position: 'absolute',
+    bottom: 15,
+    width: '90%',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  buttonActiveColor: {
+    backgroundColor: 'green',
+  },
+  buttonDisableColor: {
+    backgroundColor: 'rgba(0,128,0,0.4)',
+  },
+});

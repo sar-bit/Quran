@@ -14,6 +14,7 @@ import Slider from '../components/slider/Slider';
 import colors from '../themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {SCREEN_KEYS} from './utilities/Constants';
+import showToast from './utilities/DialogUtils';
 const {height, width} = Dimensions.get('screen');
 export const widths = width;
 
@@ -21,6 +22,7 @@ const HomeScreen = (props) => {
   const [singleSurahDetail, setSingleSurahDetails] = useState([]);
   const [selectedSurah, setSelectedSurah] = useState('Al-Fatihah');
   const [loader, setLoader] = useState(true);
+
   const getSingleSurah = async () => {
     setLoader(true);
     await fetch(
@@ -35,27 +37,28 @@ const HomeScreen = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setSingleSurahDetails(data.data), setLoader(false);
+        if (data.data === undefined) {
+          showToast(data.message);
+        } else {
+          setSingleSurahDetails(data.data);
+        }
+        setLoader(false);
       });
   };
-
-  console.log(selectedSurah, 'selectedSurah');
 
   useEffect(() => {
     getSingleSurah();
   }, [selectedSurah]);
 
-  // console.log(allSurah,'allSurah')
-  console.log(singleSurahDetail, 'singleSurahDetail');
   return (
     <View style={styles.homeContainer}>
+      <Header
+        page={SCREEN_KEYS.HOMESCREEN}
+        navigation={props.navigation}
+        setSingleSurahDetails={(res) => setSingleSurahDetails(res)}
+        setLoader={(res) => setLoader(res)}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header
-          page={SCREEN_KEYS.HOMESCREEN}
-          navigation={props.navigation}
-          setSingleSurahDetails={(res) => setSingleSurahDetails(res)}
-          setLoader={(res) => setLoader(res)}
-        />
         <HorizontalSlider setSelectedSurah={(res) => setSelectedSurah(res)} />
         {loader ? (
           <View
@@ -69,16 +72,6 @@ const HomeScreen = (props) => {
         ) : (
           <Slider singleSurahDetail={singleSurahDetail} />
         )}
-        {/* <View style={styles.detailsContainer}>
-          <Text style={styles.textHeader}>Lorem Ism is Simply</Text>
-          <Text style={styles.textStyle}>
-            Lorem Ism is Simply omescreen, Lorem Ism is Simply lorem Ism is
-            Simply Lorem Ism is Simply omescreen, Lorem Ism is Simply lorem Ism
-            is Simply Lorem Ism is Simply omescreen, Lorem Ism is Simply lorem
-            Ism is Simply Lorem Ism is Simply omescreen, Lorem Ism is Simply
-            lorem Ism is Simply
-          </Text>
-        </View> */}
       </ScrollView>
 
       <TouchableOpacity

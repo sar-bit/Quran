@@ -2,36 +2,63 @@ import React, {Component} from 'react';
 import {View, Text, Image, Dimensions} from 'react-native';
 import styles from './SliderStyles';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
+import ImageZoom from 'react-native-image-pan-zoom';
 const {height, width} = Dimensions.get('screen');
 export const widths = width;
 const sliderWidth = widths;
-const itemWidth = widths / 1.3;
+const itemWidth = widths / 1.15;
 class Slider extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      activeSlide:0
+      activeSlide: 0,
+      scrollable: true,
     };
-
+    this._handlePageZoom = this._handlePageZoom.bind(this);
+    this._renderItem = this._renderItem.bind(this);
+    this._handleDoubleClick = this._handleDoubleClick.bind(this);
   }
- 
+
+  _handlePageZoom({type, scale}) {
+    console.log(scale, 'scale');
+    if (scale !== 1) {
+      this.setState({scrollable: false});
+    } else if (scale === 1) {
+      this.setState({scrollable: true});
+    }
+  }
+
+  _handleDoubleClick() {
+    this.setState({scrollable: !this.state.scrollable});
+  }
+
   _renderItem = ({item, index}) => {
     return (
-      <View style={styles.slide}>
-        <Image source={{uri: `http://192.168.0.107:5000/${item.imagePath}`}} style={styles.sliderImg} />
+      <>
+        <ImageZoom
+          cropWidth={itemWidth}
+          cropHeight={height / 1.9}
+          imageWidth={itemWidth}
+          imageHeight={height / 1.9}
+          onMove={this._handlePageZoom}
+          onDoubleClick={this._handleDoubleClick}>
+          <Image
+            source={{uri: `http://192.168.0.107:5000/${item.imagePath}`}}
+            style={styles.sliderImg}
+            resizeMode="stretch"
+          />
+        </ImageZoom>
         <View style={styles.detailsContainer}>
           <Text style={styles.textHeader}>{item.title}</Text>
-          <Text style={styles.textStyle}>
-           {item.description}
-          </Text>
+          <Text style={styles.textStyle}>{item.description}</Text>
         </View>
-      </View>
+      </>
     );
   };
 
   get pagination() {
     const {activeSlide} = this.state;
-    const {singleSurahDetail} = this.props ||{};
+    const {singleSurahDetail} = this.props || {};
     return (
       <Pagination
         dotsLength={singleSurahDetail.length}
@@ -58,12 +85,12 @@ class Slider extends Component {
   render() {
     return (
       <View style={styles.sliderContainer}>
-        {this.props.singleSurahDetail.length===0 &&
-        <View 
-        style={styles.noListView}>
-        <Text style={styles.noListText}>No Surah Listed</Text>
-        </View>
-        }
+        {this.props.singleSurahDetail != undefined &&
+          this.props.singleSurahDetail.length === 0 && (
+            <View style={styles.noListView}>
+              <Text style={styles.noListText}>No Surah Listed</Text>
+            </View>
+          )}
         <Carousel
           ref={(c) => {
             this._carousel = c;
@@ -72,10 +99,11 @@ class Slider extends Component {
           renderItem={this._renderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
-          //layout={'tinder'}
+          // layout="default"
+          scrollEnabled={this.state.scrollable}
           onSnapToItem={(index) => this.setState({activeSlide: index})}
         />
-        {/* {this.pagination} */}
+        {this.props.singleSurahDetail != undefined && this.pagination}
       </View>
     );
   }

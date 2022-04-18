@@ -17,6 +17,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {loadImage} from '../../components/chat/ImageUpload';
+import {getDeviceId} from 'react-native-device-info';
+
 const userId = 'user';
 const isMyMessage = userId === 'user';
 
@@ -87,6 +89,7 @@ class Chat extends Component {
   }
 
   render() {
+    let deviceId = getDeviceId();
     return (
       <View style={styles.chatContainer}>
         <Header page={SCREEN_KEYS.CHAT} navigation={this.props.navigation} />
