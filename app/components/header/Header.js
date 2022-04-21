@@ -3,7 +3,7 @@ import {View, TextInput, Text} from 'react-native';
 import styles from './HeaderStyles';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import * as Animatable from 'react-native-animatable';
-import {SCREEN_KEYS} from '../../feature/utilities/Constants';
+import {SCREEN_KEYS,API} from '../../feature/utilities/Constants';
 
 class Header extends Component {
   constructor(props) {
@@ -15,10 +15,9 @@ class Header extends Component {
     this.controller;
   }
   getSearch = async () => {
-    console.log('in search');
     this.props.setLoader(true);
     await fetch(
-      `http://192.168.0.107:5000/api/surah/search/${this.state.search}`,
+      `${API.api}/api/surah/content/search/${this.state.search}`,
       {
         method: 'GET',
       },
@@ -32,7 +31,6 @@ class Header extends Component {
   render() {
     const {page, navigation} = this.props || {};
     const {search} = this.state;
-    console.log(search);
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>

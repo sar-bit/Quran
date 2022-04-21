@@ -18,7 +18,6 @@ export default StyleSheet.create({
   sliderImg: {
     width: '100%',
     height: '100%',
-    borderRadius:moderateScale(1.5)
   },
   detailsContainer: {
     marginTop: moderateScale(10),

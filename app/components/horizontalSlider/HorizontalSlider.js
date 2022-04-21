@@ -1,11 +1,12 @@
 import React,{useEffect,useState} from 'react';
 import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import styles from './HorizontalSliderStyles';
+import {API} from '../../feature/utilities/Constants';
 
 const HorizontalSlider = ({setSelectedSurah}) => {
   const [allSurah, setAllSurah] = useState([]);
   const getAllSurah = async () => {
-    await fetch('http://192.168.0.107:5000/api/surah/listing', {
+    await fetch(`${API.api}/api/surah/listing`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -18,7 +19,7 @@ const HorizontalSlider = ({setSelectedSurah}) => {
   useEffect(() => {
     getAllSurah();
   }, [allSurah.length]);
-console.log(allSurah,'allSurah')
+
   return (
     <View style={styles.sliderContainer}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -26,7 +27,7 @@ console.log(allSurah,'allSurah')
           <View style={styles.tileView} key={index}>
             <TouchableOpacity
               style={styles.tilesContainer}
-              onPress={() => setSelectedSurah(item.title)}>
+              onPress={() => setSelectedSurah(item._id)}>
               <View style={styles.tilesImgContainer}>
                 <Image
                   source={{

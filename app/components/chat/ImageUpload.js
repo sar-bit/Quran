@@ -24,10 +24,10 @@ export const loadImage = () =>
           } else if (response.customButton) {
             reject(response);
           } else {
-              console.log(response,'response response')
+            //  console.log(response,'response response')
             ImageResizer.createResizedImage(response.uri,800,600,"JPEG",80,0,null)
             .then(response => {
-                console.log(response,'response')
+              //  console.log(response,'response')
                 const source = {
                     uri: response.uri,
                     type: 'image/jpeg',

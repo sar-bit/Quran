@@ -7,6 +7,8 @@ import HomeScreen from '../feature/HomeScreen';
 import Splash from '../feature/Splash';
 import Chat from '../feature/chat/Chat';
 import Payment from '../feature/payment/Payment';
+import UserInfo from '../feature/userInfo/UserInfo';
+import ChatInfo from '../feature/chat/ChatInfo';
 
 // Navigations
 import {NavigationContainer} from '@react-navigation/native';
@@ -28,6 +30,8 @@ function AppNavigation() {
         <Stack.Screen name={SCREEN_KEYS.SPLASH} component={Splash} />
         <Stack.Screen name={SCREEN_KEYS.CHAT} component={Chat}/>
         <Stack.Screen name={SCREEN_KEYS.PAYMENT} component={Payment}/>
+        <Stack.Screen name={SCREEN_KEYS.USERINFO} component={UserInfo}/>
+        <Stack.Screen name={SCREEN_KEYS.CHATINFO} component={ChatInfo}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -13,20 +13,20 @@ import HorizontalSlider from '../components/horizontalSlider/HorizontalSlider';
 import Slider from '../components/slider/Slider';
 import colors from '../themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {SCREEN_KEYS} from './utilities/Constants';
+import {SCREEN_KEYS,API} from './utilities/Constants';
 import showToast from './utilities/DialogUtils';
 const {height, width} = Dimensions.get('screen');
 export const widths = width;
 
 const HomeScreen = (props) => {
   const [singleSurahDetail, setSingleSurahDetails] = useState([]);
-  const [selectedSurah, setSelectedSurah] = useState('Al-Fatihah');
+  const [selectedSurah, setSelectedSurah] = useState('625d693bdc08cc51309e563b');
   const [loader, setLoader] = useState(true);
 
   const getSingleSurah = async () => {
     setLoader(true);
     await fetch(
-      `http://192.168.0.107:5000/api/surah/content/${selectedSurah}`,
+      `${API.api}/api/surah/content/${selectedSurah}`,
       {
         method: 'GET',
         headers: {
@@ -37,11 +37,11 @@ const HomeScreen = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        if (data.data === undefined) {
-          showToast(data.message);
-        } else {
-          setSingleSurahDetails(data.data);
-        }
+        // if (data.data === undefined) {
+        //   showToast(data.message);
+        // } else {
+           setSingleSurahDetails(data.data);
+        // }
         setLoader(false);
       });
   };

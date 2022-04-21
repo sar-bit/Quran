@@ -37,9 +37,9 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   chatInput: {
-    width: widths / 1.7,
+    width: widths / 1.4,
     alignSelf: 'flex-start',
-    // borderWidth:1
+    //  borderWidth:1
   },
   messagesContainer: {
     flex: 1,
@@ -49,8 +49,7 @@ export default StyleSheet.create({
     borderRadius: moderateScale(4),
     marginHorizontal: moderateScale(10),
     padding: moderateScale(10),
-    marginBottom: moderateScale(10),
-    width: widths / 1.4,
+    width: widths / 1.5,
   },
   messagebgColor: {
     backgroundColor: colors.lightGrey,
@@ -59,12 +58,18 @@ export default StyleSheet.create({
     backgroundColor: colors.lightgreen,
   },
   messageMargin: {
-    marginLeft: widths / 4,
+    marginLeft: widths / 5.4,
+  },
+  messageMargin2: {
+    marginLeft: widths/1.5,
+  },
+  messageMargin3: {
+    marginLeft: widths / 6.8,
   },
   iconcontainer: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',
@@ -99,14 +104,61 @@ export default StyleSheet.create({
     height: moderateScale(200),
   },
   imageButtonsContainer: {
-    marginTop:moderateScale(15),
+    marginTop: moderateScale(15),
     width: moderateScale(200),
     flexDirection: 'row',
     alignSelf: 'center',
-    justifyContent:'space-around',
-    backgroundColor:'rgba(255,255,255,0.3)',
-    borderRadius:moderateScale(20),
-    padding:moderateScale(5)
+    justifyContent: 'space-around',
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    borderRadius: moderateScale(20),
+    padding: moderateScale(5),
   },
-
+  buttonActiveColor: {
+    backgroundColor: 'green',
+  },
+  buttonActive: {
+    height: 50,
+    position: 'absolute',
+    bottom: 15,
+    width: '90%',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  textStyle: {
+    textAlign: 'center',
+    fontSize: 22,
+    fontWeight: '600',
+    color: colors.grey,
+  },
+  messageOuterContainer:{
+    marginBottom: moderateScale(10),
+  },
+  messageInnerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // borderWidth: 1,
+   // paddingHorizontal:moderateScale(10)
+  },
+  profileContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position:'absolute'
+  },
+  userAlignment:{
+    right:10,
+    backgroundColor:colors.grey,
+  },
+  adminAlignment:{
+    left:10,
+    backgroundColor: 'green',
+  },
+  timeText:{
+    color:colors.placeholderText,
+    fontSize:10
+  }
 });

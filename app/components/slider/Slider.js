@@ -3,7 +3,10 @@ import {View, Text, Image, Dimensions} from 'react-native';
 import styles from './SliderStyles';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import ImageZoom from 'react-native-image-pan-zoom';
+import {API} from '../../feature/utilities/Constants';
+
 const {height, width} = Dimensions.get('screen');
+
 export const widths = width;
 const sliderWidth = widths;
 const itemWidth = widths / 1.15;
@@ -20,7 +23,6 @@ class Slider extends Component {
   }
 
   _handlePageZoom({type, scale}) {
-    console.log(scale, 'scale');
     if (scale !== 1) {
       this.setState({scrollable: false});
     } else if (scale === 1) {
@@ -34,7 +36,7 @@ class Slider extends Component {
 
   _renderItem = ({item, index}) => {
     return (
-      <>
+      <View>
         <ImageZoom
           cropWidth={itemWidth}
           cropHeight={height / 1.9}
@@ -43,16 +45,17 @@ class Slider extends Component {
           onMove={this._handlePageZoom}
           onDoubleClick={this._handleDoubleClick}>
           <Image
-            source={{uri: `http://192.168.0.107:5000/${item.imagePath}`}}
+            source={{uri: `${API.api}/${item.image}`}}
             style={styles.sliderImg}
             resizeMode="stretch"
           />
         </ImageZoom>
+    
         <View style={styles.detailsContainer}>
           <Text style={styles.textHeader}>{item.title}</Text>
           <Text style={styles.textStyle}>{item.description}</Text>
         </View>
-      </>
+      </View>
     );
   };
 
