@@ -21,7 +21,7 @@ export default StyleSheet.create({
     marginHorizontal: moderateScale(20),
   },
   paymentHeader: {
-    fontSize: 29,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#EFEDED',
     marginBottom: moderateScale(15),

@@ -38,7 +38,7 @@ class Header extends Component {
             name="chevron-left"
             size={40}
             color="white"
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate(SCREEN_KEYS.HOMESCREEN)}
           />
           {page === SCREEN_KEYS.HOMESCREEN ? (
             <View style={styles.searchView}>
@@ -63,7 +63,7 @@ class Header extends Component {
                   this.setState({searchClick: true}),
                     this.state.searchClick && this.getSearch();
                 }}
-                style={{position: 'absolute', right: 10}}
+                style={{position: 'absolute', right: 10, bottom:6}}
               />
             </View>
           ) : (

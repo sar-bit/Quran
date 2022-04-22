@@ -76,7 +76,7 @@ const HomeScreen = (props) => {
 
       <TouchableOpacity
         style={styles.iconStyle}
-        onPress={() => props.navigation.navigate(SCREEN_KEYS.CHAT)}>
+        onPress={() => props.navigation.navigate(SCREEN_KEYS.USERINFO)}>
         <Icon name="ios-chatbubble-ellipses-outline" size={25} color="white" />
       </TouchableOpacity>
     </View>

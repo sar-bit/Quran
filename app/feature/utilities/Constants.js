@@ -4,7 +4,9 @@ export const SCREEN_KEYS = {
     CHAT:'Chat',
     PAYMENT:'Payment',
     USERINFO:'UserInfo',
-    CHATINFO:'ChatInfo'
+    CHATINFO:'ChatInfo',
+    PAYSUCCESS:'PaymentSuccess',
+    PAYMENTFAIL:'PaymentFail'
   };
 
   export const API={

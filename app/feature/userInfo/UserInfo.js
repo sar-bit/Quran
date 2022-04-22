@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -11,11 +11,25 @@ import colors from '../../themes/Colors';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import IonicIcons from 'react-native-vector-icons/Ionicons';
 import {SCREEN_KEYS, API} from '../utilities/Constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UserInfo = (props) => {
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const addUser = () => {
+
+  let buttonenable = name === '' || email === '' ? false : true;
+
+  console.log(buttonenable, 'buttonenable');
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('@user_Key', value);
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  const addUser = async () => {
     fetch(`${API.api}/api/user/create`, {
       method: 'POST',
       headers: {
@@ -29,6 +43,7 @@ const UserInfo = (props) => {
     })
       .then((res) => res.json())
       .then((res) => {
+        storeData(res.data.user._id);
         if (res.status === 1) {
           if (res.data.payment_status === false) {
             props.navigation.navigate(SCREEN_KEYS.CHATINFO);
@@ -38,6 +53,7 @@ const UserInfo = (props) => {
         }
       });
   };
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={[styles.textInputContainer, styles.containerMarginTop]}>
@@ -74,8 +90,12 @@ const UserInfo = (props) => {
       </View>
 
       <TouchableOpacity
-        style={[styles.buttonActive, styles.buttonActiveColor]}
-        onPress={() => addUser()}>
+        style={[
+          styles.buttonActive,
+          buttonenable ? styles.buttonActiveColor : styles.buttonDisableColor,
+        ]}
+        onPress={() => addUser()}
+        disabled={!buttonenable}>
         <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
           Continue
         </Text>
@@ -114,5 +134,8 @@ const styles = StyleSheet.create({
   },
   buttonActiveColor: {
     backgroundColor: 'green',
+  },
+  buttonDisableColor: {
+    backgroundColor: 'rgba(0,128,0,0.4)',
   },
 });

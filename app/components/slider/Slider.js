@@ -15,7 +15,7 @@ class Slider extends Component {
     super(props);
     this.state = {
       activeSlide: 0,
-      scrollable: true,
+      scrollable: false,
     };
     this._handlePageZoom = this._handlePageZoom.bind(this);
     this._renderItem = this._renderItem.bind(this);
@@ -23,6 +23,7 @@ class Slider extends Component {
   }
 
   _handlePageZoom({type, scale}) {
+    console.log(scale,type,'scale')
     if (scale !== 1) {
       this.setState({scrollable: false});
     } else if (scale === 1) {
