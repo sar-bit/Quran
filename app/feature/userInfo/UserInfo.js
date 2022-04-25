@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -14,13 +14,18 @@ import {SCREEN_KEYS, API} from '../utilities/Constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UserInfo = (props) => {
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
   let buttonenable = name === '' || email === '' ? false : true;
 
-  console.log(buttonenable, 'buttonenable');
+  const validateEmail = (email) => {
+    const re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   const storeData = async (value) => {
     try {
       await AsyncStorage.setItem('@user_Key', value);
@@ -30,37 +35,40 @@ const UserInfo = (props) => {
   };
 
   const addUser = async () => {
-    fetch(`${API.api}/api/user/create`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        email,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        storeData(res.data.user._id);
-        if (res.status === 1) {
-          if (res.data.payment_status === false) {
-            props.navigation.navigate(SCREEN_KEYS.CHATINFO);
-          } else {
-            props.navigation.navigate(SCREEN_KEYS.CHAT);
+    const newEmail = validateEmail(email);
+    if (newEmail) {
+      setError('');
+      fetch(`${API.api}/api/user/create`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          storeData(res.data.user._id);
+          if (res.status === 1) {
+            if (res.data.payment_status === false) {
+              props.navigation.navigate(SCREEN_KEYS.CHATINFO);
+            } else {
+              props.navigation.navigate(SCREEN_KEYS.CHAT);
+            }
           }
-        }
-      });
+        });
+    } else setError('Enter Valid Email!!');
   };
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={[styles.textInputContainer, styles.containerMarginTop]}>
-        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Loreum Ipsm</Text>
-        <Text style={{fontSize: 14, color: colors.grey}}>
-          Loreum Ipsm Loreum Ipsm Loreum Ipsm Loreum Ipsm Loreum Ipsm Loreum
-          Ipsm Loreum Ipsm Loreum Ipsm Loreum Ipsm Loreum Ipsm
+        <Text style={{fontSize: 26, fontWeight: 'bold'}}>Loreum Ipsm</Text>
+        <Text style={{fontSize: 14, color: colors.grey, marginTop: 5, fontWeight:'900'}}>
+          Loreum Ipsm Loreum Ipsm Loreum Ipsm Loreum Ipsm Loreum Ipsm.
         </Text>
       </View>
       <View style={[styles.textInputContainer, styles.containerMarginTop]}>
@@ -88,7 +96,7 @@ const UserInfo = (props) => {
           />
         </View>
       </View>
-
+      <Text style={{textAlign: 'center', color: 'red'}}>{error}</Text>
       <TouchableOpacity
         style={[
           styles.buttonActive,
@@ -108,10 +116,10 @@ export default UserInfo;
 
 const styles = StyleSheet.create({
   containerMarginTop: {
-    marginTop: moderateScale(30),
+    marginTop: moderateScale(40),
   },
   textInputContainer: {
-    marginHorizontal: moderateScale(15),
+    marginHorizontal: moderateScale(20),
   },
   textInputStyle: {
     borderBottomWidth: 1,
@@ -119,6 +127,8 @@ const styles = StyleSheet.create({
     marginBottom: moderateScale(10),
     flexDirection: 'row',
     alignItems: 'center',
+    paddingLeft:moderateScale(15),
+    paddingVertical:moderateScale(5)
   },
   iconStyle: {width: moderateScale(25)},
   inputStyle: {height: 40, width: '90%'},

@@ -13,7 +13,7 @@ export default StyleSheet.create({
     marginTop: moderateScale(5),
   },
   slide: {
-    height: height / 1.5
+    height: height / 1.5,
   },
   sliderImg: {
     width: '100%',
@@ -25,12 +25,21 @@ export default StyleSheet.create({
   textHeader: {fontWeight: 'bold', fontSize: 14},
   textStyle: {
     color: colors.placeholderText,
-    fontSize:12
+    fontSize: 12,
   },
-  noListView:{
+  noListView: {
     alignSelf: 'center',
     justifyContent: 'center',
     height: height / 1.7,
+    width: moderateScale(170),
+    alignItems: 'center',
   },
-  noListText:{fontWeight:'bold', fontSize:20}
+  noListText: {fontWeight: 'bold', fontSize: 20},
+  ncfStyle: {width: 150, height: 150},
+  ncfText: {
+    fontSize: 20,
+    marginTop: moderateScale(20),
+    color: 'grey',
+    textAlign: 'center',
+  },
 });

@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   ActivityIndicator,
+  BackHandler
 } from 'react-native';
 import Header from '../components/header/Header';
 import HorizontalSlider from '../components/horizontalSlider/HorizontalSlider';
@@ -14,13 +15,12 @@ import Slider from '../components/slider/Slider';
 import colors from '../themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {SCREEN_KEYS,API} from './utilities/Constants';
-import showToast from './utilities/DialogUtils';
 const {height, width} = Dimensions.get('screen');
 export const widths = width;
 
 const HomeScreen = (props) => {
   const [singleSurahDetail, setSingleSurahDetails] = useState([]);
-  const [selectedSurah, setSelectedSurah] = useState('625d693bdc08cc51309e563b');
+  const [selectedSurah, setSelectedSurah] = useState('62628d5352c6d75288dd5413');
   const [loader, setLoader] = useState(true);
 
   const getSingleSurah = async () => {

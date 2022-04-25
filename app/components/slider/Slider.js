@@ -4,7 +4,7 @@ import styles from './SliderStyles';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import ImageZoom from 'react-native-image-pan-zoom';
 import {API} from '../../feature/utilities/Constants';
-
+import NCF from '../../asset/images/NCF.png'; 
 const {height, width} = Dimensions.get('screen');
 
 export const widths = width;
@@ -92,7 +92,8 @@ class Slider extends Component {
         {this.props.singleSurahDetail != undefined &&
           this.props.singleSurahDetail.length === 0 && (
             <View style={styles.noListView}>
-              <Text style={styles.noListText}>No Surah Listed</Text>
+              <Image source={NCF} style={styles.ncfStyle}/>
+              <Text style={styles.ncfText}>No Content Found</Text>
             </View>
           )}
         <Carousel

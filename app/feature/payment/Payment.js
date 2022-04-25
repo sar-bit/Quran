@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TextInput,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import Header from '../../components/header/Header';
 import {API, SCREEN_KEYS} from '../utilities/Constants';
@@ -25,6 +26,7 @@ const Payment = (props) => {
   const [expYear, setExpYear] = useState('');
   const [cvv, setCvv] = useState('');
   const [userName, setUserName] = useState('');
+  const [loader, setLoader] = useState(false);
 
   let checked =
     cardNo === '' ||
@@ -47,6 +49,7 @@ const Payment = (props) => {
   };
 
   const handlePayment = async () => {
+    setLoader(true);
     fetch(`${API.api}/api/payment/create`, {
       method: 'POST',
       headers: {
@@ -67,12 +70,15 @@ const Payment = (props) => {
         if (res.status === 1) {
           props.navigation.navigate(SCREEN_KEYS.PAYSUCCESS, {
             message: res.message,
+            data: res.data.description,
           });
         } else {
           props.navigation.navigate(SCREEN_KEYS.PAYMENTFAIL, {
             message: res.message,
+            data: res.data.description,
           });
         }
+        setLoader(false);
       });
   };
 
@@ -82,83 +88,101 @@ const Payment = (props) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white', height: height}}>
-      <View style={{height: height / 1.25}}>
-        <Header page={SCREEN_KEYS.PAYMENT} navigation={props.navigation} />
-        
-        <View style={styles.cardContainer}>
-          <Text style={styles.headerTextStyle}>Card Number</Text>
-          <TextInput
-            placeholder="Card Number"
-            style={styles.textInputStyle}
-            keyboardType="numeric"
-            value={cardNo}
-            onChangeText={(res) => setCardNo(res)}
-          />
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <View style={{width: '45%', marginRight: moderateScale(10)}}>
-              <Text style={styles.headerTextStyle}>Expire Date</Text>
-              <View
-                style={[
-                  styles.textInputStyle,
-                  {
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  },
-                ]}>
-                <TextInput
-                  placeholder="M"
-                  style={{height: '100%', width: '30%'}}
-                  maxLength={2}
-                  keyboardType="numeric"
-                  value={expMonth}
-                  onChangeText={(res) => setExpMonth(res)}
-                />
-                <Text style={{color: colors.placeholderText}}>/</Text>
-                <TextInput
-                  placeholder="Y"
-                  style={{height: '100%', width: '30%'}}
-                  maxLength={2}
-                  keyboardType="numeric"
-                  autoFocus={!expMonth === '' ? true : false}
-                  value={expYear}
-                  onChangeText={(res) => setExpYear(res)}
-                />
-              </View>
-            </View>
-            <View style={{width: '45%', marginLeft: moderateScale(10)}}>
-              <Text style={styles.headerTextStyle}>CVV</Text>
+      {loader ? (
+        <View
+          style={{
+            alignSelf: 'center',
+            justifyContent: 'center',
+            height: height / 1.7,
+          }}>
+          <ActivityIndicator size="large" color={colors.green} />
+        </View>
+      ) : (
+        <>
+          <View style={{height: height / 1.25}}>
+            <Header page={SCREEN_KEYS.PAYMENT} navigation={props.navigation} />
+
+            <View style={styles.cardContainer}>
+              <Text style={styles.headerTextStyle}>Card Number</Text>
               <TextInput
-                placeholder="CVV"
+                placeholder="Card Number"
                 style={styles.textInputStyle}
                 keyboardType="numeric"
-                maxLength={4}
-                value={cvv}
-                onChangeText={(res) => setCvv(res)}
+                value={cardNo}
+                onChangeText={(res) => setCardNo(res)}
+              />
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{width: '45%', marginRight: moderateScale(10)}}>
+                  <Text style={styles.headerTextStyle}>Expire Date</Text>
+                  <View
+                    style={[
+                      styles.textInputStyle,
+                      {
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      },
+                    ]}>
+                    <TextInput
+                      placeholder="M"
+                      style={{height: '100%', width: '30%'}}
+                      maxLength={2}
+                      keyboardType="numeric"
+                      value={expMonth}
+                      onChangeText={(res) => setExpMonth(res)}
+                    />
+                    <Text style={{color: colors.placeholderText}}>/</Text>
+                    <TextInput
+                      placeholder="Y"
+                      style={{height: '100%', width: '30%'}}
+                      maxLength={2}
+                      keyboardType="numeric"
+                      autoFocus={!expMonth === '' ? true : false}
+                      value={expYear}
+                      onChangeText={(res) => setExpYear(res)}
+                    />
+                  </View>
+                </View>
+                <View style={{width: '45%', marginLeft: moderateScale(10)}}>
+                  <Text style={styles.headerTextStyle}>CVV</Text>
+                  <TextInput
+                    placeholder="CVV"
+                    style={styles.textInputStyle}
+                    keyboardType="numeric"
+                    maxLength={4}
+                    value={cvv}
+                    onChangeText={(res) => setCvv(res)}
+                  />
+                </View>
+              </View>
+              <Text style={styles.headerTextStyle}>Name On Card</Text>
+              <TextInput
+                placeholder="Name On Card"
+                style={styles.textInputStyle}
+                value={userName}
+                onChangeText={(res) => setUserName(res)}
               />
             </View>
+            <View style={styles.noteContainer}>
+              <Text style={styles.noteText}>
+                Pay 25 USD to get support for 24 hours
+              </Text>
+            </View>
           </View>
-          <Text style={styles.headerTextStyle}>Name On Card</Text>
-          <TextInput
-            placeholder="Name On Card"
-            style={styles.textInputStyle}
-            value={userName}
-            onChangeText={(res) => setUserName(res)}
-          />
-        </View>
-      </View>
-      <TouchableOpacity
-        style={[
-          styles.buttonActive,
-          checked ? styles.buttonActiveColor : styles.buttonDisableColor,
-        ]}
-        onPress={() => handlePayment()}
-        disabled={!checked}
-      >
-        <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
-          Pay
-        </Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.buttonActive,
+              checked ? styles.buttonActiveColor : styles.buttonDisableColor,
+            ]}
+            onPress={() => handlePayment()}
+            disabled={!checked}>
+            <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
+              Pay
+            </Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };
@@ -198,4 +222,11 @@ const styles = StyleSheet.create({
   buttonDisableColor: {
     backgroundColor: 'rgba(0,128,0,0.4)',
   },
+  noteText: {
+    textAlign: 'center',
+    color: colors.placeholderText,
+    fontSize: 16,
+    fontWeight: '900',
+  },
+  noteContainer: {position: 'absolute', bottom: 40, width: '100%'},
 });
