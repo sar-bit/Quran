@@ -89,13 +89,15 @@ class Slider extends Component {
   render() {
     return (
       <View style={styles.sliderContainer}>
-        {this.props.singleSurahDetail != undefined &&
-          this.props.singleSurahDetail.length === 0 && (
+        {(this.props.singleSurahDetail === undefined ||
+          this.props.singleSurahDetail.length === 0) && (
             <View style={styles.noListView}>
               <Image source={NCF} style={styles.ncfStyle}/>
               <Text style={styles.ncfText}>No Content Found</Text>
             </View>
           )}
+          {this.props.singleSurahDetail != undefined &&
+          <>
         <Carousel
           ref={(c) => {
             this._carousel = c;
@@ -108,7 +110,9 @@ class Slider extends Component {
           scrollEnabled={this.state.scrollable}
           onSnapToItem={(index) => this.setState({activeSlide: index})}
         />
-        {this.props.singleSurahDetail != undefined && this.pagination}
+         {this.pagination}
+         </>
+         }
       </View>
     );
   }

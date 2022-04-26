@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -17,7 +17,7 @@ const UserInfo = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-
+  const jsonValue = JSON.stringify(new Date());
   let buttonenable = name === '' || email === '' ? false : true;
 
   const validateEmail = (email) => {
@@ -26,9 +26,12 @@ const UserInfo = (props) => {
     return re.test(String(email).toLowerCase());
   };
 
-  const storeData = async (value) => {
+  const storeData = async (value, name, email) => {
     try {
       await AsyncStorage.setItem('@user_Key', value);
+      await AsyncStorage.setItem('@user_Name', name);
+      await AsyncStorage.setItem('@user_Email', email);
+      await AsyncStorage.setItem('@timestamp_key', jsonValue);
     } catch (e) {
       // saving error
     }
@@ -51,7 +54,7 @@ const UserInfo = (props) => {
       })
         .then((res) => res.json())
         .then((res) => {
-          storeData(res.data.user._id);
+          storeData(res.data.user._id, name, email);
           if (res.status === 1) {
             if (res.data.payment_status === false) {
               props.navigation.navigate(SCREEN_KEYS.CHATINFO);
@@ -63,11 +66,34 @@ const UserInfo = (props) => {
     } else setError('Enter Valid Email!!');
   };
 
+  const getData = async () => {
+    try {
+      const name = await AsyncStorage.getItem('@user_Name');
+      const email = await AsyncStorage.getItem('@user_Email');
+      if (name !== null && email !== null) {
+        setName(name);
+        setEmail(email);
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={[styles.textInputContainer, styles.containerMarginTop]}>
         <Text style={{fontSize: 26, fontWeight: 'bold'}}>Loreum Ipsm</Text>
-        <Text style={{fontSize: 14, color: colors.grey, marginTop: 5, fontWeight:'900'}}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: colors.grey,
+            marginTop: 5,
+            fontWeight: '900',
+          }}>
           Loreum Ipsm Loreum Ipsm Loreum Ipsm Loreum Ipsm Loreum Ipsm.
         </Text>
       </View>
@@ -127,8 +153,8 @@ const styles = StyleSheet.create({
     marginBottom: moderateScale(10),
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft:moderateScale(15),
-    paddingVertical:moderateScale(5)
+    paddingLeft: moderateScale(15),
+    paddingVertical: moderateScale(5),
   },
   iconStyle: {width: moderateScale(25)},
   inputStyle: {height: 40, width: '90%'},

@@ -37,9 +37,10 @@ export default StyleSheet.create({
   noListText: {fontWeight: 'bold', fontSize: 20},
   ncfStyle: {width: 150, height: 150},
   ncfText: {
-    fontSize: 20,
+    fontSize: 16,
     marginTop: moderateScale(20),
     color: 'grey',
     textAlign: 'center',
+    fontWeight:'500'
   },
 });

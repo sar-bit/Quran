@@ -3,7 +3,7 @@ import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import styles from './HorizontalSliderStyles';
 import {API} from '../../feature/utilities/Constants';
 
-const HorizontalSlider = ({setSelectedSurah}) => {
+const HorizontalSlider = ({setSelectedSurah,getSingleSurah}) => {
   const [allSurah, setAllSurah] = useState([]);
   const getAllSurah = async () => {
     await fetch(`${API.api}/api/surah/listing`, {
@@ -14,7 +14,7 @@ const HorizontalSlider = ({setSelectedSurah}) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setAllSurah(data.data));
+      .then((data) => {setAllSurah(data.data),getSingleSurah(data.data[0]._id)});
   };
   useEffect(() => {
     getAllSurah();
@@ -27,7 +27,7 @@ const HorizontalSlider = ({setSelectedSurah}) => {
           <View style={styles.tileView} key={index}>
             <TouchableOpacity
               style={styles.tilesContainer}
-              onPress={() => setSelectedSurah(item._id)}>
+              onPress={() => {setSelectedSurah(item._id),getSingleSurah(item._id)}}>
               <View style={styles.tilesImgContainer}>
                 <Image
                   source={{
@@ -37,7 +37,7 @@ const HorizontalSlider = ({setSelectedSurah}) => {
                 />
               </View>
             </TouchableOpacity>
-            <Text style={styles.textStyle}>{item.title}</Text>
+            <Text style={styles.textStyle} numberOfLines={1}>{item.title}</Text>
           </View>
         ))}
       </ScrollView>
