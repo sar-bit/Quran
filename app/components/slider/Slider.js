@@ -23,7 +23,6 @@ class Slider extends Component {
   }
 
   _handlePageZoom({type, scale}) {
-    console.log(scale,type,'scale')
     if (scale !== 1) {
       this.setState({scrollable: false});
     } else if (scale === 1) {

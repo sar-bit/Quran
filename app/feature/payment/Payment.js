@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import Header from '../../components/header/Header';
 import {API, SCREEN_KEYS} from '../utilities/Constants';
-import {useStripe} from '@stripe/stripe-react-native';
 import {moderateScale} from 'react-native-size-matters';
 import colors from '../../themes/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';

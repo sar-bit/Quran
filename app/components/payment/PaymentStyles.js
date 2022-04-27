@@ -21,13 +21,14 @@ export default StyleSheet.create({
     marginHorizontal: moderateScale(20),
   },
   paymentHeader: {
-    fontSize: 25,
+    fontSize: moderateScale(20),
     fontWeight: 'bold',
     color: '#EFEDED',
     marginBottom: moderateScale(15),
+    textAlign:'center'
   },
   paymentMessage: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#EFEDED',
     lineHeight: moderateScale(15),
     textAlign: 'center',

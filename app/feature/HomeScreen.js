@@ -23,7 +23,6 @@ const HomeScreen = (props) => {
   const [singleSurahDetail, setSingleSurahDetails] = useState([]);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [selectedSurah, setSelectedSurah] = useState('');
   const [loader, setLoader] = useState(true);
 
   const getSingleSurah = async (surahId) => {
@@ -98,8 +97,7 @@ console.log(hours,'hours')
   useEffect(() => {
     getData();
   }, []);
-console.log(name,'name')
-console.log(email,'email')
+
   return (
     <View style={styles.homeContainer}>
       <Header
@@ -110,7 +108,6 @@ console.log(email,'email')
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <HorizontalSlider
-          setSelectedSurah={(res) => setSelectedSurah(res)}
           getSingleSurah={getSingleSurah}
         />
         {loader ? (

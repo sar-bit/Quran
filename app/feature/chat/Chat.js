@@ -52,8 +52,7 @@ class Chat extends Component {
   componentDidMount() {
     this.getData();
     this.getUserMessages();
-    this.socket = io('http://192.168.0.107:5000', {jsonp: false});
-    console.log('in component mount');
+    this.socket = io(`${API.api}`, {jsonp: false});
     this.socket.connect();
     this.socket.on('connect', () => console.log('connected'));
   }

@@ -3,7 +3,7 @@ import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import styles from './HorizontalSliderStyles';
 import {API} from '../../feature/utilities/Constants';
 
-const HorizontalSlider = ({setSelectedSurah,getSingleSurah}) => {
+const HorizontalSlider = ({getSingleSurah}) => {
   const [allSurah, setAllSurah] = useState([]);
   const getAllSurah = async () => {
     await fetch(`${API.api}/api/surah/listing`, {
@@ -27,7 +27,7 @@ const HorizontalSlider = ({setSelectedSurah,getSingleSurah}) => {
           <View style={styles.tileView} key={index}>
             <TouchableOpacity
               style={styles.tilesContainer}
-              onPress={() => {setSelectedSurah(item._id),getSingleSurah(item._id)}}>
+              onPress={() => {getSingleSurah(item._id)}}>
               <View style={styles.tilesImgContainer}>
                 <Image
                   source={{
